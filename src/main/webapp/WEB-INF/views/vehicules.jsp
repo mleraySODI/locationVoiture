@@ -58,6 +58,8 @@
 						</c:forEach>
 					</div>
 				</div>
+				
+				<!-- TODO - ajouter un contrôle pour afficher l'option seulements aux personnes autorisées -->
 				<a type="button" class="btn" href="<c:url value="ajouterVehicule" />" >Ajouter un véhicule</a>
 			</div>
 		</main>

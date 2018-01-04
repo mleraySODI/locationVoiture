@@ -17,6 +17,11 @@ import com.sodifrance.locationVoiture.model.Vehicule;
 @Secured("USER")
 public class VehiculesController {
 	
+	/**
+	 * Permet d'accéder à l'IHM présentant la liste des véhicules louable.
+	 * @param myModel
+	 * @return
+	 */
     @RequestMapping(method = RequestMethod.GET)
     public String afficherBonjour(Model myModel) {
         
@@ -33,6 +38,11 @@ public class VehiculesController {
     }
     
 
+    /**
+     * Permet de débrancher vers l'IHM d'jaout d'un nouveau véhicule.
+     * Seul les utilisateur ayant le rôle ADMIN peuvent accéder à cette fonctionnalité
+     * @return
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/ajouterVehicule", method = RequestMethod.GET)
     public String ajouterVehicule() {
