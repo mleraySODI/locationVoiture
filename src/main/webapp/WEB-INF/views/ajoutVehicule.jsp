@@ -25,7 +25,7 @@
 	<!-- CSS -->
 	<link href="<c:url value="/resources/css/main.css" />" rel="styleshet">
 	
-	<title>Location de Véhicules</title>
+	<title>Location de Véhicules - Ajout de véhicules</title>
 </head>
 <body>
 	<div class="container">

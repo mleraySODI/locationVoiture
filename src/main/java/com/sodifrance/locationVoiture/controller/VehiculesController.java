@@ -12,9 +12,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sodifrance.locationVoiture.model.Vehicule;
 
+/**
+ * Controller principal.
+ * Il faut être authentifier et avoir au moins l'habilitation de consultation pour
+ * que les actions soient permises.
+ * @author mleray
+ *
+ */
 @Controller
 @RequestMapping(value = {"/", "/vehicules"})
-@Secured("USER")
+@Secured("CONSULTATION")
 public class VehiculesController {
 	
 	/**
@@ -23,7 +30,7 @@ public class VehiculesController {
 	 * @return
 	 */
     @RequestMapping(method = RequestMethod.GET)
-    public String afficherBonjour(Model myModel) {
+    public String afficherVehicules(Model myModel) {
         
     	List<Vehicule> vehicules = new ArrayList<Vehicule>();
     	
@@ -40,10 +47,10 @@ public class VehiculesController {
 
     /**
      * Permet de débrancher vers l'IHM d'jaout d'un nouveau véhicule.
-     * Seul les utilisateur ayant le rôle ADMIN peuvent accéder à cette fonctionnalité
+     * Seul les utilisateur ayant le rôle "ADMIN" peuvent accéder à cette fonctionnalité
      * @return
      */
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('GESTION')")
     @RequestMapping(value = "/ajouterVehicule", method = RequestMethod.GET)
     public String ajouterVehicule() {
     	return "ajoutVehicule";

@@ -13,29 +13,27 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	/**
-	 * 
-	 * @param auth
-	 * @throws Exception
-	 */
 	@Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-    	auth
-			.inMemoryAuthentication()
-			.withUser("user").password("user").roles("USER").and()
-    		.withUser("Admin").password("admin").roles("USER", "ADMIN");
-    }
-	
-	/**
-	 * 
-	 */
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth.inMemoryAuthentication().withUser("user").password("user").roles("CONSULTATION").and()
+				.withUser("Admin").password("admin").roles("CONSULTATION", "GESTION");
+	}
+
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-			.anyRequest().authenticated()
-			.and()
+				.antMatchers("/resources**").permitAll()
+				.antMatchers("/login*").permitAll()
+				.anyRequest().authenticated()
+				.and()
 			.formLogin()
-			.and()
-			.httpBasic();
+				.loginPage("/login")
+				.permitAll()
+				.usernameParameter("username")
+				.passwordParameter("password")
+				.and()
+			.logout()
+				.logoutSuccessUrl("/login?logout")
+				.permitAll();
 	}
 }

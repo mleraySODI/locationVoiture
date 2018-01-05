@@ -14,21 +14,21 @@
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	
+	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"/>
 	
 	<!-- JS --> 
-	<!--  JQUERY -->
 	<script   src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
-	<!--  BOOTSTRAP -->
 	<script   src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
 	
 	<!-- CSS -->
-<%-- 	<link href="<c:url value="/resources/vendor/bootstrap/css/bootstrap.min.css" />" rel="styleshet"> --%>
-	<link href="<c:url value="/resources/css/main.css" />" rel="styleshet">
+<%-- 	<link rel="styleshet" type="text/css" href="<c:url value="WEB-INF/resources/css/bootstrap.min.css" />" > --%>
+<%-- 	<link rel="styleshet" type="text/css" href="<c:url value="WEB-INF/resources/css/main.css" />" > --%>
+	
 	<!-- JS --> 
+<%-- 	<script src="<c:url value="/resources/js/jquery-3.2.1.min.js" />"></script> --%>
+<%-- 	<script src="<c:url value="/resources/js/bootstrap.min.js" />"></script> --%>
 <%-- 	<script src="<c:url value="/resources/js/main.js" />"></script> --%>
-<%-- 	<script src="<c:url value="/resources/vendor/jquery/jquery-3.2.1.min.js" />"></script> --%>
-<%-- 	<script src="<c:url value="/resources/vendor/bootstrap/js/bootstrap.min.js" />"></script> --%>
 	
 	<title>Location de Véhicules</title>
 </head>
@@ -37,6 +37,7 @@
 		<header class="header clearfix">
 			<nav>
 				<ul class="nav nav-pills float-right">
+					<!-- Propose le bouton de déconnexion (uniquemen si l'utilsateur est authentifier, ce qui est obligatoire) -->
 					<c:if test="${pageContext['request'].userPrincipal != null}">
 						<li class="nav-item">
 							<a type="button" class="nav-link btn btn-danger" href="<c:url value="/logout" />">Déconnexion</a>
@@ -59,8 +60,12 @@
 					</div>
 				</div>
 				
-				<!-- TODO - ajouter un contrôle pour afficher l'option seulements aux personnes autorisées -->
-				<a type="button" class="btn" href="<c:url value="ajouterVehicule" />" >Ajouter un véhicule</a>
+				<!-- On affiche l'option d'ajout de véhicule uniquement si l'utilisateur est authentifié et habilité pour le faire -->
+				<c:if test="${pageContext['request'].userPrincipal != null}">
+					<c:if test="${pageContext['request'].isUserInRole('GESTION')}">
+						<a type="button" class="btn" href="<c:url value="ajouterVehicule" />" >Ajouter un véhicule</a>
+					</c:if>
+				</c:if>
 			</div>
 		</main>
 		

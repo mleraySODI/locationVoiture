@@ -6,3 +6,13 @@
 	background-color:white;
 	padding:10px 10px 10px 10px;
 }
+
+.error {
+	color: red;
+	font-weight: bold;
+}
+
+.success {
+	color: green;
+	font-style: italic;
+}
